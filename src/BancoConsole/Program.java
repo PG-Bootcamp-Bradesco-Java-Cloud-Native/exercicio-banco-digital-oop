@@ -1,6 +1,5 @@
 package BancoConsole;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
@@ -114,7 +113,7 @@ public class Program {
 
                 case "1":
                     Helpers.Console.clear();
-                    System.out.println("Banco Console - Dados da Conta - " + conta.getNumero());
+                    System.out.println("Banco Console - Dados da Conta");
                     System.out.println();
                     System.out.println("\tNumero da Conta: " + conta.getNumero());
                     System.out.println("\tAgencia: " + conta.getAgencia());
@@ -130,31 +129,28 @@ public class Program {
                     Helpers.Console.clear();
                     System.out.print("Valor do Deposito: ");
                     Integer valorDeposito = Helpers.Parsers.tryParseInteger(scanner.nextLine());
-                    if (valorDeposito == null) {
-                        mensagens.add("Valor invalido. Por favor, tente novamente.");
+                    try {
+                        conta.realizarDeposito(valorDeposito);
+                    } catch (Exception e) {
+                        mensagens.add("Falha no deposito.\n\t\t" + e.getMessage());
                         break;
                     }
-                    conta.realizarDeposito(BigDecimal.valueOf(valorDeposito));
-                    mensagens.add("Deposito realizado com sucesso. A conta agora tem um saldo de " + conta.getSaldo());
+                    mensagens.add(
+                            "Deposito realizado com sucesso. A conta agora tem um saldo de " + conta.getSaldo() + ".");
                     break;
 
                 case "3":
                     Helpers.Console.clear();
                     System.out.print("Valor do Saque: ");
                     Integer valorSaque = Helpers.Parsers.tryParseInteger(scanner.nextLine());
-                    if (valorSaque == null) {
-                        mensagens.add("Valor invalido. Por favor, tente novamente.");
-                        break;
-                    }
-
                     try {
-                        conta.realizarSaque(BigDecimal.valueOf(valorSaque));
+                        conta.realizarSaque(valorSaque);
                     } catch (Exception e) {
                         mensagens.add("Falha no saque.\n\t\t" + e.getMessage());
                         break;
                     }
-
-                    mensagens.add("Saque realizado com sucesso. A conta agora tem um saldo de " + conta.getSaldo());
+                    mensagens.add(
+                            "Saque realizado com sucesso. A conta agora tem um saldo de " + conta.getSaldo() + ".");
                     break;
 
                 default:
