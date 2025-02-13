@@ -11,7 +11,7 @@ import shared.MenuApp.Configuration.MenuAppConfiguration;
 
 public class MenuApp {
 
-    private Stack<MenuNode> nodeHistory = new Stack<>();
+    public Stack<MenuNode> nodeHistory = new Stack<>();
     private final MenuAppConfiguration configuration;
     public final ArrayDeque<String> messages = new ArrayDeque<>();
     public final Scanner scan = new Scanner(System.in);

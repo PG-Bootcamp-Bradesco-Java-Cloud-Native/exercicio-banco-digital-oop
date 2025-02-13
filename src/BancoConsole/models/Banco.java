@@ -8,11 +8,14 @@ public final class Banco {
     private static List<Conta> contas = new ArrayList<Conta>();
     private static Conta contaAtiva = null;
 
-    public static Conta registrarConta(String agencia, String nomeCliente) {
+    public static void registrarConta(Conta conta) {
         int numeroNewConta = 1000 + contas.size();
-        Conta newConta = new Conta(numeroNewConta, agencia, nomeCliente);
-        contas.add(newConta);
-        return newConta;
+        int agencia = 1234;
+
+        conta.agencia = agencia;
+        conta.numero = numeroNewConta;
+
+        contas.add(conta);
     }
 
     public static Conta getContaAtiva() {

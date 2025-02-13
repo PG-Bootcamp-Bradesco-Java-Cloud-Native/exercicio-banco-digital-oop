@@ -1,14 +1,12 @@
 package BancoConsole.models;
 
-public class Conta {
-    private int numero;
-    private String agencia;
-    private String nomeCliente;
-    private int saldo;
+public abstract class Conta {
+    protected int numero;
+    protected int agencia;
+    protected String nomeCliente;
+    protected Double saldo = 0.0;
 
-    public Conta(int numero, String agencia, String nomeCliente) {
-        this.numero = numero;
-        this.agencia = agencia;
+    public Conta(String nomeCliente) {
         this.nomeCliente = nomeCliente;
     }
 
@@ -16,7 +14,7 @@ public class Conta {
         return this.numero;
     }
 
-    public String getAgencia() {
+    public int getAgencia() {
         return this.agencia;
     }
 
@@ -24,11 +22,11 @@ public class Conta {
         return this.nomeCliente;
     }
 
-    public int getSaldo() {
+    public Double getSaldo() {
         return this.saldo;
     }
 
-    public void realizarDeposito(Integer valor) throws Exception {
+    public void realizarDeposito(Double valor) throws Exception {
         if (valor == null) {
             throw new Exception("Valor invalido. Por favor, tente novamente.");
         }
@@ -39,17 +37,16 @@ public class Conta {
         this.saldo += valor;
     }
 
-    public void realizarSaque(Integer valor) throws Exception {
-        if (valor == null) {
-            throw new Exception("Valor invalido. Por favor, tente novamente.");
-        }
-        if (valor <= 0) {
-            throw new Exception("Valor invalido: Deve ser superior a 0.");
-        }
-        if (this.saldo < valor) {
-            throw new Exception("Valor invalido: Excede saldo da conta.");
-        }
+    public abstract void realizarSaque(Double valor) throws Exception;
 
-        this.saldo -= valor;
-    }
+    @Override
+    public String toString() {
+        return new StringBuilder()
+                .append("\nTipo da Conta: ").append(this.getClass().getSimpleName())
+                .append("\nNúmero da Conta: ").append(numero)
+                .append("\nNúmero da Agência: ").append(agencia)
+                .append("\nProprietário: ").append(nomeCliente)
+                .append("\nSaldo: ").append(saldo)
+                .toString();
+    };
 }

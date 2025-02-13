@@ -18,5 +18,15 @@ public class Helpers {
             }
             return value;
         }
+
+        public static Double tryParseDouble(String s) {
+            Double value;
+            try {
+                value = Double.parseDouble(s);
+            } catch (Exception e) {
+                return null;
+            }
+            return value;
+        }
     }
 }
